@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-06-phonebook",
+  "name": "goit-react-hw-07-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://qwimik.github.io/goit-react-hw-06-phonebook/",
+  "homepage": "https://qwimik.github.io/goit-react-hw-07-phonebook/",
   "dependencies": {
     "@redux-devtools/extension": "^3.2.5",
     "@reduxjs/toolkit": "^1.9.3",
