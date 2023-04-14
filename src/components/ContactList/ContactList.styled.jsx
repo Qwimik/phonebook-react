@@ -35,3 +35,11 @@ export const ContactBtn = styled.button`
     color: red;
   }
 `;
+export const ContactInfo = styled.div`
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+`;

@@ -1,11 +1,13 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { deleteContact, getAllContacts } from 'redux/contactsSlice';
-import { getFilter } from 'redux/filterSlice';
 import { FaWindowClose } from 'react-icons/fa';
 import {
   ContactLi,
   ContactBtn,
+  ContactInfo,
 } from 'components/ContactList/ContactList.styled';
+
+import { useSelector, useDispatch } from 'react-redux';
+import * as contactsOperations from 'redux/contactsOperations';
+import { getContacts, getFilter } from 'redux/reducer';
 
 //toast
 import { ToastContainer, toast } from 'react-toastify';
@@ -23,24 +25,25 @@ const warningMsg = name =>
   });
 
 export const ContactListItems = () => {
-  const allContacts = useSelector(getAllContacts);
-  const filter = useSelector(getFilter);
   const dispatch = useDispatch();
+  const allContacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
 
   return (
     <>
-      {allContacts.contacts
+      {allContacts
         .filter(item => item.name.toLowerCase().includes(filter.toLowerCase()))
         .map(item => {
           return (
             <ContactLi key={item.name}>
-              <span>
-                {item.name}: {item.number}
-              </span>
+              <ContactInfo>
+                <span>{item.name}</span>
+                <span>{item.phone}</span>
+              </ContactInfo>
               <ContactBtn
                 type="button"
                 onClick={() => {
-                  dispatch(deleteContact(item.name));
+                  dispatch(contactsOperations.deleteContact(item.id));
                   warningMsg(item.name);
                 }}
               >

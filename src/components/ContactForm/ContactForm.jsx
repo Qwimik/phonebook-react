@@ -1,17 +1,19 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addContact, getAllContacts } from 'redux/contactsSlice';
-import { nanoid } from 'nanoid';
-import { Input } from 'components/ContactForm/FormInputName.styled';
 import {
   FormLabel,
   LabelSpan,
   BtnSubmit,
+  Input,
 } from 'components/ContactForm/ContactForm.styled';
+
+import { useSelector, useDispatch } from 'react-redux';
+import * as contactsOperations from 'redux/contactsOperations';
+import { getContacts } from 'redux/reducer';
 
 //toast
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 const errorMsg = name =>
   toast.error(`${name} is already in contacts!`, {
     position: 'top-right',
@@ -37,23 +39,23 @@ const succsessMsg = name =>
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
 
-  const allContacts = useSelector(getAllContacts);
+  const allContacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const onSubmit = e => {
     e.preventDefault();
-    const names = allContacts.contacts.map(item => item.name);
+    const names = allContacts.map(item => item.name);
     if (names.some(item => item.toLowerCase() === name.toLowerCase())) {
       errorMsg(name);
       return;
     }
-    const id = nanoid();
-    dispatch(addContact({ name, number, id }));
+    const data = { name, phone };
+    dispatch(contactsOperations.addContact({ ...data }));
     succsessMsg(name);
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -79,8 +81,8 @@ export const ContactForm = () => {
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
-            value={number}
-            onChange={e => setNumber(e.target.value)}
+            value={phone}
+            onChange={e => setPhone(e.target.value)}
           />
         </FormLabel>
         <div>
