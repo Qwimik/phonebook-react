@@ -6,7 +6,7 @@ import { ContactList } from 'components/ContactList/ContactList';
 import { Container, Title, SubTitle } from 'components/App/App.styled';
 
 import * as contactsOperations from 'redux/contactsOperations';
-import { getContacts, filterContact } from 'redux/reducer';
+import { getContacts } from 'redux/reducer';
 import { useEffect } from 'react';
 
 export default function App() {
