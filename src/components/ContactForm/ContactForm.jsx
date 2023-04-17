@@ -12,7 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { errorMsg, succsessMsg } from 'utilities/toast';
 
-import { useGetContactsQuery, useAddContactMutation } from 'redux/contacts';
+import { useGetContactsQuery, useAddContactMutation } from 'redux/contactsApi';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');

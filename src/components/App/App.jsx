@@ -1,4 +1,4 @@
-import { useGetContactsQuery } from 'redux/contacts';
+import { useGetContactsQuery } from 'redux/contactsApi';
 
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { Filter } from 'components/Filter/Filter';

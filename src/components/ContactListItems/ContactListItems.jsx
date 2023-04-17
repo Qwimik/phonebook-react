@@ -8,7 +8,10 @@ import {
 
 import { useSelector } from 'react-redux';
 import { getFilter } from 'redux/filterSlice';
-import { useGetContactsQuery, useDeleteContactMutation } from 'redux/contacts';
+import {
+  useGetContactsQuery,
+  useDeleteContactMutation,
+} from 'redux/contactsApi';
 
 //toast
 import { ToastContainer } from 'react-toastify';
