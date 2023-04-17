@@ -13,13 +13,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import { errorMsg, succsessMsg } from 'utilities/toast';
 
 import { useGetContactsQuery, useAddContactMutation } from 'redux/contactsApi';
+import { Spinner } from 'components/Spinner/Spinner';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
   const { data } = useGetContactsQuery();
-  const [addContact] = useAddContactMutation();
+  const [addContact, { isLoading }] = useAddContactMutation();
 
   const onSubmit = e => {
     e.preventDefault();
@@ -63,7 +64,9 @@ export const ContactForm = () => {
           />
         </FormLabel>
         <div>
-          <BtnSubmit type="submit">Submit</BtnSubmit>
+          <BtnSubmit type="submit" disabled={isLoading}>
+            {isLoading ? <Spinner /> : 'Submit'}
+          </BtnSubmit>
         </div>
       </form>
       <ToastContainer />

@@ -3,14 +3,9 @@ import { useGetContactsQuery } from 'redux/contactsApi';
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { Filter } from 'components/Filter/Filter';
 import { ContactList } from 'components/ContactList/ContactList';
-import { RotatingLines } from 'react-loader-spinner';
+import { Spinner } from 'components/Spinner/Spinner';
 
-import {
-  Container,
-  Title,
-  SubTitle,
-  LoaderContainer,
-} from 'components/App/App.styled';
+import { Container, Title, SubTitle } from 'components/App/App.styled';
 
 export default function App() {
   const { data, isFetching } = useGetContactsQuery();
@@ -23,16 +18,7 @@ export default function App() {
       <ContactForm />
       <SubTitle>Contacts</SubTitle>
       <Filter />
-      <LoaderContainer>
-        <RotatingLines
-          strokeColor="grey"
-          strokeWidth="2"
-          animationDuration="0.75"
-          width="40"
-          visible={isFetching}
-        />
-      </LoaderContainer>
-      {showContactList && <ContactList />}
+      {showContactList ? <ContactList /> : <Spinner />}
       {showText && (
         <p style={{ textAlign: 'center' }}>Don't have contacts...</p>
       )}
