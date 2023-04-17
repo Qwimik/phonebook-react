@@ -1,10 +1,3 @@
-// import { useGetContactsQuery } from 'redux/contactsApi';
-// import { ContactForm } from 'components/ContactForm/ContactForm';
-// import { Filter } from 'components/Filter/Filter';
-// import { ContactList } from 'components/ContactList/ContactList';
-// import { Spinner } from 'components/Spinner/Spinner';
-// import { Container, Title, SubTitle } from 'components/App/App.styled';
-
 import { lazy, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
@@ -14,10 +7,10 @@ import { RestrictedRoute } from 'components/RestrictedRouter';
 import { refreshUser } from 'redux/auth/operations';
 import { useAuth } from 'hooks';
 
-const HomePage = lazy(() => import('../../pages/Home/Home'));
-const ContactsPage = lazy(() => import('../../pages/Contacts/Contacts'));
-const RegisterPage = lazy(() => import('../../pages/Register/Register'));
-const LoginPage = lazy(() => import('../../pages/Login/Login'));
+const HomePage = lazy(() => import('../../pages/Home/HomePage'));
+const ContactsPage = lazy(() => import('../../pages/Contacts/ContactsPage'));
+const RegisterPage = lazy(() => import('../../pages/Register/RegisterPage'));
+const LoginPage = lazy(() => import('../../pages/Login/LoginPage'));
 
 export default function App() {
   const dispatch = useDispatch();
@@ -57,23 +50,4 @@ export default function App() {
       </Route>
     </Routes>
   );
-
-  // const { data, isFetching } = useGetContactsQuery();
-  // const showContactList = data && !isFetching && data.length > 0;
-  // const showText = data && data.length === 0 && !isFetching;
-  // return (
-  //   <Container>
-  //     <Routes>
-  //       <Title>Phonebook</Title>
-  //       <ContactForm />
-  //       <SubTitle>Contacts</SubTitle>
-  //       <Filter />
-  //       {/* {showContactList ? */}
-  //       <ContactList />
-  //       <Spinner />
-  //       {/* {showText && */}
-  //       <p style={{ textAlign: 'center' }}>Don't have contacts...</p>
-  //     </Routes>
-  //   </Container>
-  // );
 }

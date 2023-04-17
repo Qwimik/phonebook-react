@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAuth } from 'hooks';
 
 import {
   FormLabel,
@@ -10,30 +11,33 @@ import {
 //toast
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import { errorMsg, succsessMsg } from 'utilities/toast';
+import { errorMsg, succsessMsg } from 'utilities/toast';
 
-// import { useGetContactsQuery, useAddContactMutation } from 'redux/contactsApi';
-// import { Spinner } from 'components/Spinner/Spinner';
+import { Spinner } from 'components/Spinner/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectContacts } from 'redux/contacts/selectors';
+import { addContact } from 'redux/contacts/operations';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
+  const { isRefreshing } = useAuth();
 
-  // const { data } = useGetContactsQuery();
-  // const [addContact, { isLoading }] = useAddContactMutation();
+  const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
 
   const onSubmit = e => {
     e.preventDefault();
-    // const names = data?.map(item => item.name);
-    // if (names.some(item => item.toLowerCase() === name.toLowerCase())) {
-    //   errorMsg(name);
-    //   return;
-    // }
-    // const newContact = { name, phone };
-    // addContact(newContact);
-    // succsessMsg(name);
+    const names = contacts?.map(item => item.name);
+    if (names.some(item => item.toLowerCase() === name.toLowerCase())) {
+      errorMsg(name);
+      return;
+    }
+    const newContact = { name, number };
+    dispatch(addContact(newContact));
+    succsessMsg(name);
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
   return (
@@ -59,13 +63,13 @@ export const ContactForm = () => {
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
-            value={phone}
-            onChange={e => setPhone(e.target.value)}
+            value={number}
+            onChange={e => setNumber(e.target.value)}
           />
         </FormLabel>
         <div>
           <BtnSubmit type="submit">
-            {/* {isLoading ? <Spinner /> : 'Submit'} */}
+            {isRefreshing ? <Spinner /> : 'Submit'}
           </BtnSubmit>
         </div>
       </form>

@@ -1,32 +1,34 @@
-// import { FaWindowClose } from 'react-icons/fa';
-// import { warningMsg } from 'utilities/toast';
-// import { Spinner } from 'components/Spinner/Spinner';
-// // import { useDeleteContactMutation } from 'redux/contactsApi';
+import { FaWindowClose } from 'react-icons/fa';
+import { Spinner } from 'components/Spinner/Spinner';
 
-// import {
-//   ContactLi,
-//   ContactBtn,
-//   ContactInfo,
-// } from 'components/ContactList/ContactList.styled';
+import {
+  ContactLi,
+  ContactBtn,
+  ContactInfo,
+} from 'components/ContactList/ContactList.styled';
+import { useAuth } from 'hooks';
+import { useDispatch } from 'react-redux';
+import { deleteContact } from 'redux/contacts/operations';
 
-export const ContactListItem = ({ item }) => {
-  // const [deleteContact, { isLoading }] = useDeleteContactMutation();
-  // return (
-  //   <ContactLi>
-  //     <ContactInfo>
-  //       <span>{item.name}</span>
-  //       <span>{item.phone}</span>
-  //     </ContactInfo>
-  //     <ContactBtn
-  //       type="button"
-  //       disabled={isLoading}
-  //       onClick={() => {
-  //         deleteContact(item.id);
-  //         warningMsg(item.name);
-  //       }}
-  //     >
-  //       {isLoading ? <Spinner /> : <FaWindowClose />}
-  //     </ContactBtn>
-  //   </ContactLi>
-  // );
+export const ContactListItem = ({ id, name, number }) => {
+  const { isRefreshing } = useAuth();
+  const dispatch = useDispatch();
+
+  return (
+    <ContactLi>
+      <ContactInfo>
+        <span>{name}</span>
+        <span>{number}</span>
+      </ContactInfo>
+      <ContactBtn
+        type="button"
+        disabled={isRefreshing}
+        onClick={() => {
+          dispatch(deleteContact(id));
+        }}
+      >
+        {isRefreshing ? <Spinner /> : <FaWindowClose />}
+      </ContactBtn>
+    </ContactLi>
+  );
 };
