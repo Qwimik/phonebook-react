@@ -3,8 +3,9 @@ import {
   FilterSpan,
   FilterInput,
 } from 'components/Filter/Filter.styled';
+
 import { useSelector, useDispatch } from 'react-redux';
-import { filterContact, getFilter } from 'redux/reducer';
+import { filterContact, getFilter } from 'redux/filterSlice';
 
 export const Filter = () => {
   const dispatch = useDispatch();

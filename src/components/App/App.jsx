@@ -1,21 +1,21 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useGetContactsQuery } from 'redux/contacts';
 
 import { ContactForm } from 'components/ContactForm/ContactForm';
 import { Filter } from 'components/Filter/Filter';
 import { ContactList } from 'components/ContactList/ContactList';
-import { Container, Title, SubTitle } from 'components/App/App.styled';
+import { RotatingLines } from 'react-loader-spinner';
 
-import * as contactsOperations from 'redux/contactsOperations';
-import { getContacts } from 'redux/reducer';
-import { useEffect } from 'react';
+import {
+  Container,
+  Title,
+  SubTitle,
+  LoaderContainer,
+} from 'components/App/App.styled';
 
 export default function App() {
-  const dispatch = useDispatch();
-  const allContacts = useSelector(getContacts);
-
-  useEffect(() => {
-    dispatch(contactsOperations.fetchContacts());
-  }, [dispatch]);
+  const { data, isFetching } = useGetContactsQuery();
+  const showContactList = data && !isFetching && data.length > 0;
+  const showText = data && data.length === 0 && !isFetching;
 
   return (
     <Container>
@@ -23,9 +23,17 @@ export default function App() {
       <ContactForm />
       <SubTitle>Contacts</SubTitle>
       <Filter />
-      {allContacts.length > 0 ? (
-        <ContactList />
-      ) : (
+      <LoaderContainer>
+        <RotatingLines
+          strokeColor="grey"
+          strokeWidth="2"
+          animationDuration="0.75"
+          width="40"
+          visible={isFetching}
+        />
+      </LoaderContainer>
+      {showContactList && <ContactList />}
+      {showText && (
         <p style={{ textAlign: 'center' }}>Don't have contacts...</p>
       )}
     </Container>

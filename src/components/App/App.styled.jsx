@@ -16,3 +16,9 @@ export const Title = styled.h1`
 export const SubTitle = styled.h1`
   text-align: center;
 `;
+
+export const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

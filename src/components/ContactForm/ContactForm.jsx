@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import {
   FormLabel,
   LabelSpan,
@@ -6,53 +7,29 @@ import {
   Input,
 } from 'components/ContactForm/ContactForm.styled';
 
-import { useSelector, useDispatch } from 'react-redux';
-import * as contactsOperations from 'redux/contactsOperations';
-import { getContacts } from 'redux/reducer';
-
 //toast
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { errorMsg, succsessMsg } from 'utilities/toast';
 
-const errorMsg = name =>
-  toast.error(`${name} is already in contacts!`, {
-    position: 'top-right',
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'colored',
-  });
-const succsessMsg = name =>
-  toast.success(`${name} add to your contacts!`, {
-    position: 'top-right',
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'colored',
-  });
+import { useGetContactsQuery, useAddContactMutation } from 'redux/contacts';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
-  const allContacts = useSelector(getContacts);
-  const dispatch = useDispatch();
+  const { data } = useGetContactsQuery();
+  const [addContact] = useAddContactMutation();
 
   const onSubmit = e => {
     e.preventDefault();
-    const names = allContacts.map(item => item.name);
+    const names = data?.map(item => item.name);
     if (names.some(item => item.toLowerCase() === name.toLowerCase())) {
       errorMsg(name);
       return;
     }
-    const data = { name, phone };
-    dispatch(contactsOperations.addContact({ ...data }));
+    const newContact = { name, phone };
+    addContact(newContact);
     succsessMsg(name);
     setName('');
     setPhone('');
