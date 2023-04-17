@@ -10,28 +10,28 @@ import {
 //toast
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { errorMsg, succsessMsg } from 'utilities/toast';
+// import { errorMsg, succsessMsg } from 'utilities/toast';
 
-import { useGetContactsQuery, useAddContactMutation } from 'redux/contactsApi';
-import { Spinner } from 'components/Spinner/Spinner';
+// import { useGetContactsQuery, useAddContactMutation } from 'redux/contactsApi';
+// import { Spinner } from 'components/Spinner/Spinner';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
-  const { data } = useGetContactsQuery();
-  const [addContact, { isLoading }] = useAddContactMutation();
+  // const { data } = useGetContactsQuery();
+  // const [addContact, { isLoading }] = useAddContactMutation();
 
   const onSubmit = e => {
     e.preventDefault();
-    const names = data?.map(item => item.name);
-    if (names.some(item => item.toLowerCase() === name.toLowerCase())) {
-      errorMsg(name);
-      return;
-    }
-    const newContact = { name, phone };
-    addContact(newContact);
-    succsessMsg(name);
+    // const names = data?.map(item => item.name);
+    // if (names.some(item => item.toLowerCase() === name.toLowerCase())) {
+    //   errorMsg(name);
+    //   return;
+    // }
+    // const newContact = { name, phone };
+    // addContact(newContact);
+    // succsessMsg(name);
     setName('');
     setPhone('');
   };
@@ -64,8 +64,8 @@ export const ContactForm = () => {
           />
         </FormLabel>
         <div>
-          <BtnSubmit type="submit" disabled={isLoading}>
-            {isLoading ? <Spinner /> : 'Submit'}
+          <BtnSubmit type="submit">
+            {/* {isLoading ? <Spinner /> : 'Submit'} */}
           </BtnSubmit>
         </div>
       </form>
