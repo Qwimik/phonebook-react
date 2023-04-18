@@ -1,19 +1,7 @@
 import { useState } from 'react';
-import { useAuth } from 'hooks';
-
-import {
-  FormLabel,
-  LabelSpan,
-  BtnSubmit,
-  Input,
-} from 'components/ContactForm/ContactForm.styled';
-
-//toast
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { errorMsg, succsessMsg } from 'utilities/toast';
-
-import { Spinner } from 'components/Spinner/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/contacts/selectors';
 import { addContact } from 'redux/contacts/operations';
@@ -21,7 +9,6 @@ import { addContact } from 'redux/contacts/operations';
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const { isRefreshing } = useAuth();
 
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
@@ -43,9 +30,9 @@ export const ContactForm = () => {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <FormLabel htmlFor="name">
-          <LabelSpan>Name</LabelSpan>
-          <Input
+        <label>
+          <span>Name</span>
+          <input
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -54,10 +41,10 @@ export const ContactForm = () => {
             value={name}
             onChange={e => setName(e.target.value)}
           />
-        </FormLabel>
-        <FormLabel htmlFor="number">
-          <LabelSpan>Number</LabelSpan>
-          <Input
+        </label>
+        <label>
+          <span>Number</span>
+          <input
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -66,11 +53,9 @@ export const ContactForm = () => {
             value={number}
             onChange={e => setNumber(e.target.value)}
           />
-        </FormLabel>
+        </label>
         <div>
-          <BtnSubmit type="submit">
-            {isRefreshing ? <Spinner /> : 'Submit'}
-          </BtnSubmit>
+          <button type="submit">Submit</button>
         </div>
       </form>
       <ToastContainer />

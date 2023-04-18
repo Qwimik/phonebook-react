@@ -1,10 +1,11 @@
 import { NavLink } from 'react-router-dom';
+import { Flex } from '@chakra-ui/react';
 
 export const AuthNav = () => {
   return (
-    <div>
+    <Flex align="center" gap="15px">
       <NavLink to="/register">Register</NavLink>
       <NavLink to="/login">Log In</NavLink>
-    </div>
+    </Flex>
   );
 };
