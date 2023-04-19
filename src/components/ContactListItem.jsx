@@ -4,6 +4,7 @@ import { deleteContact } from 'redux/contacts/operations';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { Button } from '@chakra-ui/react';
 import { Flex, Box, useToast } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
 
 export const ContactListItem = ({ id, name, number }) => {
   const { isLoading } = useAuth();
@@ -47,4 +48,10 @@ export const ContactListItem = ({ id, name, number }) => {
       </Box>
     </li>
   );
+};
+
+ContactListItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
 };
