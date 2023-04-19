@@ -3,19 +3,21 @@ import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/contacts/operations';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { Button } from '@chakra-ui/react';
-import { Flex, Box } from '@chakra-ui/react';
+import { Flex, Box, useToast } from '@chakra-ui/react';
 
 export const ContactListItem = ({ id, name, number }) => {
-  const { isRefreshing } = useAuth();
+  const { isLoading } = useAuth();
   const dispatch = useDispatch();
+  const toast = useToast();
 
   return (
     <li>
       <Box
+        borderBottom="1px"
+        borderColor="gray.500"
         bg="#ffffff1a"
         mb="10px"
         _hover={{ background: '#ffffff33' }}
-        cursor="pointer"
         borderRadius="4px"
         pl="15px"
       >
@@ -27,10 +29,17 @@ export const ContactListItem = ({ id, name, number }) => {
           <Button
             p="1px"
             type="button"
-            disabled={isRefreshing}
+            disabled={isLoading}
             onClick={() => {
               dispatch(deleteContact(id));
+              toast({
+                title: `${name} contact has been removed.`,
+                position: 'top',
+                status: 'info',
+                isClosable: true,
+              });
             }}
+            _hover={{ bg: 'orangered', color: 'white' }}
           >
             <DeleteIcon />
           </Button>

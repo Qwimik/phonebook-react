@@ -21,7 +21,7 @@ export default function App() {
   }, [dispatch]);
 
   return isRefreshing ? (
-    <b>Ewfreshing user...</b>
+    <b>Loading...</b>
   ) : (
     <Routes>
       <Route path="/" element={<Layout />}>

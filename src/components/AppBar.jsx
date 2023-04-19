@@ -12,7 +12,7 @@ export const AppBar = () => {
   return (
     <header>
       <Box py="15px" position="relative">
-        <Flex align="center" justify="space-between">
+        <Flex align="center" justify="space-between" gap="150px">
           <Navigation />
           {isLoggedIn ? <UserMenu /> : <AuthNav />}
           <Button
@@ -21,6 +21,7 @@ export const AppBar = () => {
             position="absolute"
             bottom="-3em"
             right="0"
+            size="sm"
           >
             {colorMode === 'light' ? <SunIcon /> : <MoonIcon />}
           </Button>

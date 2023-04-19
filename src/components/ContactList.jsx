@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectContacts, selectFilter } from 'redux/contacts/selectors';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Box } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 
 export const ContactList = () => {
   const contacts = useSelector(selectContacts);
@@ -12,7 +12,9 @@ export const ContactList = () => {
   return (
     <>
       {contacts.length === 0 && (
-        <p style={{ textAlign: 'center' }}>Don't have contacts...</p>
+        <Text textAlign="center" color="gray.600" fontSize="xl">
+          Don't have contacts...
+        </Text>
       )}
       <Box maxW="500px">
         <ul>

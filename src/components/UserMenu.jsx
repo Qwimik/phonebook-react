@@ -10,7 +10,9 @@ export const UserMenu = () => {
 
   return (
     <Flex align="center" gap="10px">
-      <Text textTransform="capitalize">{user.name}</Text>
+      <Text textTransform="capitalize" fontWeight="bold" letterSpacing="0.05em">
+        {user.name}
+      </Text>
       <Button type="button" onClick={() => dispatch(logOut())} p="1px">
         <ImExit />
       </Button>
