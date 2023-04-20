@@ -15,8 +15,8 @@ export const LoginForm = () => {
         password: form.elements.password.value,
       })
     );
-    form.reset();
   };
+
   return (
     <>
       <form onSubmit={onSubmit} autoComplete="off">

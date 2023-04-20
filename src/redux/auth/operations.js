@@ -20,7 +20,7 @@ export const register = createAsyncThunk(
       return res.data;
     } catch (error) {
       alert(
-        `${credentials.email} email is already taken, please choose another one`
+        `"${credentials.email}" email is already taken, please choose another one`
       );
       return thunkAPI.rejectWithValue(error);
     }
@@ -35,7 +35,7 @@ export const logIn = createAsyncThunk(
       setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
-      alert('Oops, try again...');
+      alert('Invalid email or password. Please try again.');
       return thunkAPI.rejectWithValue(error);
     }
   }

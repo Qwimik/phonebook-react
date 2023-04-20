@@ -9,19 +9,15 @@ export const RegisterForm = () => {
   const onSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget;
-    try {
-      dispatch(
-        register({
-          name: form.elements.name.value,
-          email: form.elements.email.value,
-          password: form.elements.password.value,
-        })
-      );
-      form.reset();
-    } catch (error) {
-      console.log('asdfasdfasdfasdf');
-    }
+    dispatch(
+      register({
+        name: form.elements.name.value,
+        email: form.elements.email.value,
+        password: form.elements.password.value,
+      })
+    );
   };
+
   return (
     <>
       <form onSubmit={onSubmit} autoComplete="off">
